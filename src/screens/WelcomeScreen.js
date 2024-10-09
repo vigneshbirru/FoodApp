@@ -1,90 +1,69 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import logo from "../../assets/g10.png";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
 
-const WelcomeScreen = () => {
-    return (
-        <View style={styles.main}>
-            <View style={styles.container}>
-                <Image source={logo} style={styles.logo} />
-                <Text style={styles.heading}>Waves Of Food</Text>
-                <Text style={styles.subtitle}>Deliver Favorite Food</Text>
+export default function WelcomeScreen({ navigation }) {
+  return (
+    <ImageBackground
+      source={require('../../assets/background.jpg')} // Replace with your background image path
+      style={styles.background}
+      resizeMode="stretch" // Ensures the image fills the screen while maintaining aspect ratio
+    >
+      <View style={styles.container}>
+        <Image 
+          source={require('../../assets/logo.png')} // Replace with your logo image path
+          style={styles.logo} 
+        />
+        <Text style={styles.title}>Welcome to Rail Yatri!</Text>
 
-                {/* Buttons for Signup/Login */}
-                <View style={styles.btnout}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Sign Up</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Log In</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
 
-            {/* Footer Section */}
-            <View style={styles.footerContainer}>
-                <Text style={styles.footer}>Terms of Service</Text>
-                <Text style={styles.footer}>Privacy Policy</Text>
-            </View>
-        </View>
-    );
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    },
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
-    },
-    logo: {
-        width: 200,
-        height: 200,
-        marginBottom: 20,
-    },
-    heading: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    subtitle: {
-        fontSize: 15,
-        marginBottom: 50,
-    },
-    btnout:{
-        flexDirection: 'row',
-        justifyContent:'space-around',
-        width: '80%',
-    },
-    button: {
-        backgroundColor: '#6CCB7B',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 10,  
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16,
-    },
-    footerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10,
-        width: '100%',
-        position: 'absolute',
-        bottom: 0,
-    },
-    footer: {
-        fontSize: 12,
-        color: '#007bff',
-        marginHorizontal: 10,
-    },
+  background: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'rgba(255, 255, 255, 0.8)', // Optional: semi-transparent white overlay for readability
+    // padding: 20,
+    // borderRadius: 10,
+  },
+  logo: {
+    width: 450, // Adjust the width as needed
+    height: 160, // Adjust the height as needed
+    marginBottom: 320, // Space between logo and title
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color:'#007bff', 
+    marginTop: 200,
+    padding:10,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    width: 180,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+  },
 });
-
-export default WelcomeScreen;
