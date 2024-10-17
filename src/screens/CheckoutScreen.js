@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
 
-export default function CheckoutScreen({ route, navigation }) {
+export default function CheckoutScreen({ navigation ,route}) {
   const { cart, setOrderHistory } = route.params; // Get cart items and setOrderHistory from route parameters
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [mobile, setMobile] = useState('');
+  const [TrainPNR, setTrainPNR] = useState('');
+  const [SeatNo, setSeatNo] = useState('');
   const [isCODSelected, setIsCODSelected] = useState(false);
 
   const handleConfirmOrder = () => {
     // Validate input
-    if (!name || !address || !mobile) {
+    if (!name || !address || !mobile || !TrainPNR || !SeatNo){
       Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
@@ -25,18 +27,14 @@ export default function CheckoutScreen({ route, navigation }) {
       name,
       address,
       mobile,
+      TrainPNR,  // Include TrainPNR in the order object
     };
 
     // Add the order to the order history
     setOrderHistory((prevOrders) => [...prevOrders, order]);
 
-    // Show confirmation alert and navigate back to Home Screen
-    Alert.alert('Order Confirmed', 'Your order has been placed successfully!', [
-      {
-        text: 'OK',
-        onPress: () => navigation.navigate('Home'), // Navigate back to Home Screen
-      },
-    ]);
+    // Show confirmation alert without navigation
+    Alert.alert('Order Confirmed', 'Your order has been placed successfully! 🎉');
   };
 
   const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
@@ -65,6 +63,20 @@ export default function CheckoutScreen({ route, navigation }) {
         keyboardType="phone-pad"
         onChangeText={setMobile}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Train PNR No."
+        value={TrainPNR}  // Correctly using TrainPNR state variable
+        keyboardType="phone-pad"
+        onChangeText={setTrainPNR}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Seat No."
+        value={SeatNo}  // Correctly using TrainPNR state variable
+        keyboardType="phone-pad"
+        onChangeText={setSeatNo}
+      />
 
       <TouchableOpacity
         style={styles.paymentButton}
@@ -77,7 +89,7 @@ export default function CheckoutScreen({ route, navigation }) {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmOrder}>
+      <TouchableOpacity style={styles.confirmButton}  onPress={() => navigation.navigate('SuccessfullScreen')}>
         <Text style={styles.confirmText}>Confirm Order</Text>
       </TouchableOpacity>
     </View>
@@ -87,26 +99,27 @@ export default function CheckoutScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#f8f8f8',
+    padding: 20,
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
   },
   subTitle: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
-    marginVertical: 20,
+    color: '#666',
+    marginVertical: 10,
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
+    borderRadius: 10,
+    paddingHorizontal: 15,
     marginVertical: 10,
   },
   paymentButton: {
@@ -118,7 +131,7 @@ const styles = StyleSheet.create({
   },
   paymentText: {
     color: '#fff',
-    fontSize: 18,
+    fontWeight: '600',
   },
   confirmButton: {
     backgroundColor: '#28a745',
@@ -128,7 +141,6 @@ const styles = StyleSheet.create({
   },
   confirmText: {
     color: '#fff',
-    fontSize: 18,
     fontWeight: '600',
   },
 });

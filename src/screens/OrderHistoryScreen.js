@@ -5,7 +5,7 @@ export default function OrderHistoryScreen({ orderHistory }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Order History</Text>
-      {orderHistory.length === 0 ? (
+      {orderHistory && orderHistory.length === 0 ? (
         <Text style={styles.emptyText}>No orders placed yet.</Text>
       ) : (
         <FlatList
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: '#333',
   },
-});
+}); 

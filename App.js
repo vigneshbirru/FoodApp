@@ -8,6 +8,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import CartScreen from './src/screens/CartScreen';
 import OrderHistoryScreen from './src/screens/OrderHistoryScreen';
 import CheckoutScreen from './src/screens/CheckoutScreen';
+import SuccessfullScreen from './src/screens/SuccessfullScreen';
 
 // Create Stack Navigator
 const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name="CartScreen" component={CartScreen} />
         <Stack.Screen name="OrderHistoryScreen" component={OrderHistoryScreen} />
         <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+        <Stack.Screen name="SuccessfullScreen" component={SuccessfullScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

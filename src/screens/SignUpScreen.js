@@ -6,6 +6,12 @@ export default function SignUpScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const handleLogin =(e)=>{
+    e.preventDefault();
+    // TODO: Implement login logic here
+
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create an Account</Text>

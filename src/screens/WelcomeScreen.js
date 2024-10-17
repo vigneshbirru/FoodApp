@@ -6,7 +6,7 @@ export default function WelcomeScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require('../../assets/background.jpg')} // Replace with your background image path
+      // source={require('../../assets/g10.png')} // Replace with your background image path
       style={[styles.background, { width, height }]} // Set width and height dynamically
       resizeMode="stretch" // Ensures the image fills the screen while maintaining aspect ratio
     >

@@ -9,11 +9,17 @@ export default function HomeScreen({ navigation }) {
     alert(`${item.name} added to cart!`);
   };
 
+  const promoItems = [
+    { id: 1, title: 'Flat 20% Off', image: require('../../assets/promo.jpg') },
+    { id: 2, title: 'Combo Offer', image: require('../../assets/promo.jpg') },
+    { id: 3, title: 'Buy 1 Get 1 Free', image: require('../../assets/promo.jpg') },
+  ];
+
   const menuItems = [
     { id: 1, name: 'Veg Meals', price: 120, image: require('../../assets/veg-meal.jpg') },
     { id: 2, name: 'Non-Veg Meals', price: 150, image: require('../../assets/non-veg-meal.jpg') },
     { id: 3, name: 'Snacks', price: 50, image: require('../../assets/snacks.jpg') },
-    { id: 4, name: 'Fast Food', price: 100, image: require('../../assets/fastfood.jpg') },
+    { id: 4, name: 'Fast Food', price: 100, image: require('../../assets/snacks.jpg') },
     { id: 5, name: 'Combo Meals', price: 200, image: require('../../assets/combo-meal.jpg') },
     { id: 6, name: 'Beverages', price: 40, image: require('../../assets/beverages.jpg') },
   ];
@@ -23,22 +29,34 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.title}>Rail Yatri</Text>
       <Text style={styles.subtitle}>Order Railway Food at Your Seat!</Text>
 
+      {/* Promo Slider */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.promoSlider}>
+        {promoItems.map((promo) => (
+          <View key={promo.id} style={styles.promoCard}>
+            <Image source={promo.image} style={styles.promoImage} />
+            <Text style={styles.promoTitle}>{promo.title}</Text>
+          </View>
+        ))}
+      </ScrollView>
+
       {/* Scrollable Menu Categories */}
       <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
         <Text style={styles.sectionTitle}>Menu Categories</Text>
-        {menuItems.map((item) => (
-          <View key={item.id} style={styles.menuCard}>
-            <Image source={item.image} style={styles.foodImage} />
-            <Text style={styles.menuText}>{item.name}</Text>
-            <Text style={styles.priceText}>₹{item.price}</Text>
-            <TouchableOpacity
-              style={styles.addToCartButton}
-              onPress={() => addToCart(item)}
-            >
-              <Text style={styles.addToCartText}>Add to Cart</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+        <View style={styles.menuGrid}>
+          {menuItems.map((item) => (
+            <View key={item.id} style={styles.menuCard}>
+              <Image source={item.image} style={styles.foodImage} />
+              <Text style={styles.menuText}>{item.name}</Text>
+              <Text style={styles.priceText}>₹{item.price}</Text>
+              <TouchableOpacity
+                style={styles.addToCartButton}
+                onPress={() => addToCart(item)}
+              >
+                <Text style={styles.addToCartText}>Add to Cart</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
       </ScrollView>
 
       {/* Cart and Order History Buttons */}
@@ -80,13 +98,38 @@ const styles = StyleSheet.create({
     color: '#666',
     marginVertical: 10,
   },
+  promoSlider: {
+    marginVertical: 10,
+  },
+  promoCard: {
+    backgroundColor: '#fff',
+    marginRight: 15,
+    padding: 10,
+    borderRadius: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    width: 300,
+    height: 550,
+  },
+  promoImage: {
+    width: 280,
+    height: 160,
+    borderRadius: 10,
+  },
+  promoTitle: {
+    marginTop: 5,
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   scrollContainer: {
     marginVertical: 10,
   },
   scrollContent: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    paddingVertical: 10,
   },
   sectionTitle: {
     fontSize: 22,
@@ -95,13 +138,18 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     color: '#007bff',
   },
+  menuGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
   menuCard: {
     backgroundColor: '#fff',
     padding: 15,
     borderRadius: 10,
     marginVertical: 10,
     alignItems: 'center',
-    width: '45%',
+    width: '48%', // Adjusted for consistent grid layout
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -117,12 +165,14 @@ const styles = StyleSheet.create({
   menuText: {
     fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
     color: '#333',
   },
   priceText: {
     fontSize: 16,
     color: '#666',
     marginVertical: 5,
+    textAlign: 'center',
   },
   addToCartButton: {
     backgroundColor: '#28a745',

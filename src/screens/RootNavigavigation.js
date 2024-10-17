@@ -1,6 +1,7 @@
 import react from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import SuccessfullScreen from "./SuccessfullScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,9 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="OrderHistory">
           {props => <OrderHistoryScreen {...props} orderHistory={orderHistory} />}
+        </Stack.Screen>
+        <Stack.Screen name="SuccessfullScreen">
+          <SuccessfullScreen />
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
